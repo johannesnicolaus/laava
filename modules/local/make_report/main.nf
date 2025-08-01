@@ -49,6 +49,20 @@ process MAKE_REPORT {
     def ff_fa_arg = flipflop_fa ? flipflop_fa.name != "NO_FILE" ? "$flipflop_fa" : "" : ""
     
     """
+    # Set up writable temporary directories for R/pandoc
+    export TMPDIR=\$(pwd)/tmp
+    export TMP=\$(pwd)/tmp  
+    export TEMP=\$(pwd)/tmp
+    mkdir -p \$TMPDIR
+    
+    # Set up fontconfig cache directory
+    export FONTCONFIG_PATH=\$(pwd)/fontconfig
+    mkdir -p \$FONTCONFIG_PATH
+    
+    # Set R environment variables
+    export R_LIBS_USER=\$(pwd)/R_libs
+    mkdir -p \$R_LIBS_USER
+    
     make_report.sh \\
         $args \\
         "${prefix}" \\
