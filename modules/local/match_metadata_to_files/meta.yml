@@ -1,0 +1,44 @@
+name: match_metadata_to_files
+description: Match metadata to sample files
+keywords:
+  - metadata
+  - samples
+  - matching
+tools:
+  - custom:
+      description: Custom Python script to match metadata to files
+      homepage: https://github.com/formbio/laava
+      documentation: https://github.com/formbio/laava
+      licence: ["MIT"]
+
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - sample_in_metadata:
+      type: file
+      description: TSV file containing sample metadata
+      pattern: "*.{tsv,csv}"
+  - sample_folder:
+      type: directory
+      description: Directory containing sample files
+
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - metadata:
+      type: file
+      description: TSV file with matched metadata and file paths
+      pattern: "*.tsv"
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+
+authors:
+  - "@formbio"

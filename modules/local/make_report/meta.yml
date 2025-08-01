@@ -1,0 +1,140 @@
+name: make_report
+description: Generate AAV analysis report with statistics and visualizations
+keywords:
+  - aav
+  - report
+  - analysis
+  - visualization
+  - statistics
+tools:
+  - R:
+      description: The R Project for Statistical Computing
+      homepage: https://www.r-project.org/
+      documentation: https://www.r-project.org/
+      licence: ["GPL v2"]
+  - samtools:
+      description: Tools for manipulating next-generation sequencing data
+      homepage: http://www.htslib.org/
+      documentation: http://www.htslib.org/doc/samtools.html
+      doi: "10.1093/bioinformatics/btp352"
+      licence: ["MIT"]
+
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - reference_names:
+      type: file
+      description: TSV file with reference names
+      pattern: "*.tsv"
+  - mapped_reads:
+      type: file
+      description: BAM file with mapped reads
+      pattern: "*.bam"
+  - vector_annotation:
+      type: file
+      description: BED file with vector annotations
+      pattern: "*.bed"
+  - itr_label_1:
+      type: string
+      description: Label for ITR 1
+  - itr_label_2:
+      type: string
+      description: Label for ITR 2
+  - mitr_label:
+      type: string
+      description: Label for mITR
+  - vector_type:
+      type: string
+      description: Type of vector (ss or sc)
+  - target_gap_threshold:
+      type: integer
+      description: Target gap threshold
+  - max_allowed_outside_vector:
+      type: integer
+      description: Maximum allowed bases outside vector
+  - max_allowed_missing_flanking:
+      type: integer
+      description: Maximum allowed missing flanking bases
+  - min_supp_joint_coverage:
+      type: float
+      description: Minimum support joint coverage
+  - flipflop_name:
+      type: string
+      description: Name for flipflop analysis
+  - flipflop_fa:
+      type: file
+      description: FASTA file for flipflop analysis (optional)
+      pattern: "*.{fa,fasta}"
+
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - metadata_tsv:
+      type: file
+      description: Sample metadata TSV file
+      pattern: "*.metadata.tsv"
+  - alignments_tsv:
+      type: file
+      description: Alignments summary TSV file
+      pattern: "*.alignments.tsv.gz"
+  - per_read_tsv:
+      type: file
+      description: Per-read analysis TSV file
+      pattern: "*.per_read.tsv.gz"
+  - nonmatch_tsv:
+      type: file
+      description: Non-matching reads TSV file
+      pattern: "*.nonmatch.tsv.gz"
+  - agg_ref_type_tsv:
+      type: file
+      description: Aggregated reference type TSV file
+      pattern: "*.agg_ref_type.tsv"
+  - agg_subtype_tsv:
+      type: file
+      description: Aggregated subtype TSV file
+      pattern: "*.agg_subtype.tsv"
+  - flipflop_tsv:
+      type: file
+      description: Flipflop analysis TSV file
+      pattern: "*.flipflop.tsv.gz"
+  - agg_flipflop_tsv:
+      type: file
+      description: Aggregated flipflop TSV file
+      pattern: "*.agg_flipflop.tsv"
+  - tagged_bam:
+      type: file
+      description: Tagged BAM file
+      pattern: "*.tagged.bam"
+  - subtype_bams:
+      type: file
+      description: Subtype-specific BAM files
+      pattern: "*.tagged.sorted.bam"
+  - subtype_bais:
+      type: file
+      description: Subtype-specific BAM index files
+      pattern: "*.tagged.sorted.bam.bai"
+  - flipflop_bams:
+      type: file
+      description: Flipflop-specific BAM files
+      pattern: "*.flipflop-*.bam"
+  - aav_report_html:
+      type: file
+      description: AAV analysis report in HTML format
+      pattern: "*_AAV_report.html"
+  - aav_report_pdf:
+      type: file
+      description: AAV analysis report in PDF format
+      pattern: "*_AAV_report.pdf"
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+
+authors:
+  - "@formbio"
